@@ -1,0 +1,12 @@
+.terraform
+.terraform/*
+
+tmp
+tmp/*
+
+.terraform.lock.hcl
+
+README
+
+terraform.tfstate
+terraform.tfvars
