@@ -5,8 +5,8 @@ tmp
 tmp/*
 
 .terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfvars
 
 README
-
-terraform.tfstate
-terraform.tfvars
