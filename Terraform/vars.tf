@@ -15,11 +15,11 @@ variable "AWS_SECRET_KEY" {
 }
 
 variable "PATH_TO_PRIVATE_KEY" {
-  default = "tmp/mykey"
+  default = "../tmp/mykey"
 }
 
 variable "PATH_TO_PUBLIC_KEY" {
-  default = "tmp/mykey.pub"
+  default = "../tmp/mykey.pub"
 }
 
 variable "INSTANCE_USERNAME" {

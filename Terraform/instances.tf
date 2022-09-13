@@ -9,7 +9,8 @@ resource "aws_instance" "k8s_master" {
     key_name      = aws_key_pair.mykey.key_name
     vpc_security_group_ids = [aws_security_group.allow_ssh.id]
     provisioner "local-exec" {
-    command = "echo ${aws_instance.k8s_master.public_ip} > tmp/k8s_master.txt"
+    #command = "echo ${aws_instance.k8s_master.public_ip} > tmp/k8s_master.txt"
+    command = "docker run --rm -it -v $(pwd):/data ansible_terraform sed -i 's/master1/${aws_instance.k8s_master.public_ip}/g' ../Ansible/hosts"
   }
 }
 
@@ -20,6 +21,7 @@ resource "aws_instance" "k8s_workers" {
     key_name      = aws_key_pair.mykey.key_name
     vpc_security_group_ids = [aws_security_group.allow_ssh.id]
     provisioner "local-exec" {
-    command = "echo ${aws_instance.k8s_workers[0].public_ip} > tmp/k8s_workers.txt; echo ${aws_instance.k8s_workers[1].public_ip} >> tmp/k8s_workers.txt"
+    #command = "echo ${aws_instance.k8s_workers[0].public_ip} > tmp/k8s_workers.txt; echo ${aws_instance.k8s_workers[1].public_ip} >> tmp/k8s_workers.txt"
+    command = "docker run --rm -it -v $(pwd):/data ansible_terraform sed -i 's/worker1/${aws_instance.k8s_workers[0].public_ip}/g' ../Ansible/hosts; docker run --rm -it -v $(pwd):/data ansible_terraform sed -i 's/worker2/${aws_instance.k8s_workers[1].public_ip}/g' ../Ansible/hosts"
   }
 }
