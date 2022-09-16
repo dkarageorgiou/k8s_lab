@@ -1,0 +1,63 @@
+---
+
+- name: Setup local environment
+  hosts: localhost
+  become: yes
+
+  tasks:
+
+    - name: Create tmp directory
+      file:
+        path: ../tmp
+        state: directory
+
+    - name: generate SSH keypair
+      openssh_keypair:
+        path: "../tmp/mykey"
+        type: rsa
+        size: 4096
+        state: present
+        force: no
+
+    - name: Initialize terraform
+      command: terraform -chdir=../Terraform/ init
+
+    - name: Terraform plan
+      command: terraform -chdir=../Terraform/ plan
+      register: plan
+
+    - name: Terraform apply
+      command: terraform -chdir=../Terraform/ apply -auto-approve
+      register: apply
+
+    - name: Get master IP
+      command: terraform -chdir=../Terraform/ output master_ec2_public_ip
+      register: master_ip
+
+    - set_fact:
+        master_ip_parsed: "{{ master_ip.stdout.split('.')[0:4] | join('.') }}"
+
+    - name: Get worker1 IP
+      command: terraform -chdir=../Terraform/ output worker1_ec2_public_ip
+      register: worker1_ip
+
+    - set_fact:
+        worker1_ip_parsed: "{{ worker1_ip.stdout.split('.')[0:4] | join('.') }}"
+
+    - name: Get worker2 IP
+      command: terraform -chdir=../Terraform/ output worker2_ec2_public_ip
+      register: worker2_ip
+
+    - set_fact:
+        worker2_ip_parsed: "{{ worker2_ip.stdout.split('.')[0:4] | join('.') }}"
+    
+    - name: Deploy hosts file template
+      template:
+        src: hosts.j2
+        dest: "../tmp/hosts"
+        mode: '0770'
+
+    - name: Pause for 90 seconds
+      pause:
+        seconds: 90
+
