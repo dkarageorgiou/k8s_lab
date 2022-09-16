@@ -11,8 +11,12 @@ RUN set -ex \
     && apt install openssh-client -y \
     && apt install unzip -y \
     && apt install wget -y \
+    && apt install rsync -y \
     && pip3 install botocore boto boto3 \
-    && pip3 install ansible==$ANSIBLE_VERSION
+    && pip3 install ansible==$ANSIBLE_VERSION \
+    && ansible-galaxy collection install ansible.utils \ 
+    && pip install netaddr \
+    && pip install ipaddr
 
 
 RUN set -ex \

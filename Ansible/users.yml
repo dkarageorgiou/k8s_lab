@@ -13,7 +13,21 @@
         line: 'kube ALL=(ALL) NOPASSWD: ALL'
         validate: 'visudo -cf %s'
 
-    - name: set up authorized keys for the kube user
-      authorized_key: user=kube key="{{item}}"
-      with_file:
-        - ~/.ssh/id_rsa.pub
+    #- name: set up authorized keys for the kube user
+    #  authorized_key: user=kube key="{{item}}"
+    #  with_file:
+    #    - ~/.ssh/id_rsa.pub
+
+    - name: Create ssh directory
+      file:
+        path: /home/kube/.ssh/
+        state: directory
+
+    - name: Copy authorized keys from default user
+      copy:
+        remote_src: yes
+        src: "~/.ssh/authorized_keys"
+        dest: "/home/kube/.ssh/"
+        owner: kube
+        group: kube
+        mode: '0770'
