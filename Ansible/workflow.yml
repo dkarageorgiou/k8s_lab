@@ -62,7 +62,7 @@
         mode: '0770'
 
 
-- include: users.yml
-- include: install_k8s.yml
-- include: master.yml
-- include: join-workers.yml
+- include_playbook: users.yml
+- include_playbook: install_k8s.yml
+- include_playbook: master.yml
+- include_playbook: join-workers.yml

@@ -1,5 +1,5 @@
-resource "aws_security_group" "allow_ssh_from_my_ip" {
-  name = "ssh_from_my_ip"
+resource "aws_security_group" "allow_my_ip" {
+  name = "allow_my_ip"
 
   ingress {
     from_port   = 0

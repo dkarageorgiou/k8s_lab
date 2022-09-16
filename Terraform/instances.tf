@@ -7,10 +7,7 @@ resource "aws_instance" "k8s_master" {
     ami           = var.AMIs[var.aws_region]
     instance_type = "t2.medium"
     key_name      = aws_key_pair.mykey.key_name
-    vpc_security_group_ids = [aws_security_group.allow_ssh_from_my_ip.id]
-    #provisioner "local-exec" {
-    #command = "echo ${aws_instance.k8s_master.public_ip} > k8s_master.txt"
-  #}
+    vpc_security_group_ids = [aws_security_group.allow_my_ip.id]
 }
 
 resource "aws_instance" "k8s_workers" {
@@ -18,8 +15,5 @@ resource "aws_instance" "k8s_workers" {
     ami           = var.AMIs[var.aws_region]
     instance_type = "t2.medium"
     key_name      = aws_key_pair.mykey.key_name
-    vpc_security_group_ids = [aws_security_group.allow_ssh_from_my_ip.id]
-    #provisioner "local-exec" {
-    #command = "echo ${aws_instance.k8s_workers.*.public_ip} > k8s_workers.txt"
-  #}
+    vpc_security_group_ids = [aws_security_group.allow_my_ip.id]
 }
