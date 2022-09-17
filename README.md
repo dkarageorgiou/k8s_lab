@@ -14,13 +14,13 @@ Builds a kubernetes cluster that consist of 1 master node and 2 workers in AWS, 
 Add your AWS credentials under Terraform/terraform.tfvars
 
 - Create the stack
-> ./entrypoint deploy
-
-- Destroy the stack
-> ./entrypoint destroy
+> ./entrypoint.sh deploy
 
 - Login to master node
 > ssh -i tmp/mykey ubuntu@master_ip_address
 
 - Switch to user kube
 > sudo su - kube
+
+- Destroy the stack
+> ./entrypoint.sh destroy
