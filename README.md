@@ -2,7 +2,7 @@
 
 ## Scope
 
-Builds a kubernetes cluster that consist of 1 master node and 2 workers in AWS
+Builds a kubernetes cluster that consist of 1 master node and 2 workers in AWS, using an ubuntu image as t2.medium (expect a cost of ~EUR 3 / 24 hours of usage)
 
 ## Requirements
 

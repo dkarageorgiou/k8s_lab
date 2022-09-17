@@ -1,6 +1,6 @@
 ---
 
-- name: Setup local environment
+- name: Setup AWS environment
   hosts: localhost
   become: yes
 
