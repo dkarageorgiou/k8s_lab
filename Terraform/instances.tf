@@ -8,6 +8,9 @@ resource "aws_instance" "k8s_master" {
     instance_type = "t2.medium"
     key_name      = aws_key_pair.mykey.key_name
     vpc_security_group_ids = [aws_security_group.allow_my_ip.id]
+    tags = {
+      Group = "k8s_cluster"
+  }
 }
 
 resource "aws_instance" "k8s_workers" {
@@ -16,4 +19,8 @@ resource "aws_instance" "k8s_workers" {
     instance_type = "t2.medium"
     key_name      = aws_key_pair.mykey.key_name
     vpc_security_group_ids = [aws_security_group.allow_my_ip.id]
+    tags = {
+      Group = "k8s_cluster"
+  }
+
 }

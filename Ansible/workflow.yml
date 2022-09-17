@@ -1,6 +1,5 @@
 ---
 
-#- include: setup_env.yml tags=deploy
 - include: users.yml tags=deploy
 - include: install_k8s.yml tags=deploy
 - include: master.yml tags=deploy
