@@ -4,6 +4,9 @@ if [ ${1} == 'deploy' ]
 then
     if test -f "tmp/cluster_initialized"; then
 
+        echo "Cluster already initialized!"
+    
+    else
         docker run \
                 --rm -it -v $(pwd):/data \
                 -e ANSIBLE_CONFIG=Ansible/ansible.cfg \
@@ -14,8 +17,6 @@ then
                 && touch tmp/cluster_initialized \
                 && terraform -chdir=../Terraform/ output master_ec2_public_ip \
                 && echo 'SSH to kube master with: ssh -i tmp/mykey ubuntu@master_ip_address'"
-    else
-        echo "Cluster already initialized!"
     fi
 
 elif [ ${1} == 'destroy' ]
