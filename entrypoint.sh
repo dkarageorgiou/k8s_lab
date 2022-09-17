@@ -15,7 +15,7 @@ then
                 "ansible-playbook Ansible/infra.yml \
                 && ansible-playbook Ansible/workflow.yml \
                 && touch tmp/cluster_initialized \
-                && terraform -chdir=../Terraform/ output master_ec2_public_ip \
+                && terraform -chdir=Terraform/ output master_ec2_public_ip \
                 && echo 'SSH to kube master with: ssh -i tmp/mykey ubuntu@master_ip_address'"
     fi
 
